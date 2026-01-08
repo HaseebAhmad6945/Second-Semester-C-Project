@@ -142,14 +142,6 @@ Common tasks and where to find them in the UI:
 - Billing: Generate bill after appointment; transactions update inventory and billing tables atomically.
 - Prescriptions: From an appointment or doctor dashboard, create prescription and adjust inventory.
 
----
-
-## Testing & Screenshots
-
-Include screenshots under `/docs/screenshots` if available. If images were not loading previously, ensure the image files exist in the repo and use relative paths. For a presentation, prefer embedding screenshots exported to `docs/screenshots/*.png`.
-
----
-
 ## Developer Notes
 
 - Code style: follow single-responsibility for classes and keep UI code thin (push logic to BL/Services).
@@ -167,12 +159,7 @@ Include screenshots under `/docs/screenshots` if available. If images were not l
 ---
 
 ## License
-
 If this is for coursework, include a note about usage and attribution. Otherwise, add an open-source license (e.g., MIT) by adding a LICENSE file.
 
----
 
-If you want, I can also:
-- Add emoji/icon decorations before headings throughout the README (I used several already).
-- Remove or move the broken images and diagrams into a `docs/` folder and update paths.
-- Create a small CONTRIBUTING.md and LICENSE file.
+
