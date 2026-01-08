@@ -1,35 +1,30 @@
-# Hospital Management System (Second-Semester C# Project)
+# 💡 Hospital Management System (Second-Semester C# Project)
 
-This project is a Hospital Management System (HMS) developed using C# (Windows Forms) that demonstrates Object-Oriented Programming (OOP) principles and a layered architecture. It provides both a GUI (Windows Forms) and a Console interface and uses SQL Server for persistent storage.
-
----
-
-## Project Snapshot
-
-### Project Logo
-![Hospital logo](images/hospital.svg)
-
-### Quick Highlights
-![Features icon](images/features.svg) ![Architecture icon](images/architecture.svg)
+A clean, user-friendly Hospital Management System (HMS) built with C# (Windows Forms) and a simple Console interface. This project demonstrates Object-Oriented Programming (OOP) principles, layered architecture, and real-world features required to run basic hospital operations.
 
 ---
 
-## Table of Contents
+📌 Project Snapshot
+
+- Name: Hospital Management System (HMS)
+- Technology: C#, Windows Forms, .NET / .NET Framework
+- Database: SQL Server (scripts included if present)
+- Interfaces: GUI (Windows Forms) and Console
+
+---
+
+🧭 Table of Contents
 
 - [Overview](#overview)
 - [Motivation & Problem Statement](#motivation--problem-statement)
 - [Key Features](#key-features)
 - [Architecture & Design](#architecture--design)
-  - [Four-tier / Layered Architecture](#four-tier--layered-architecture)
-  - [User Interface (UI) Layer](#user-interface-ui-layer)
-  - [Business Logic (BL) Layer](#business-logic-bl-layer)
-  - [Service Layer](#service-layer)
-  - [Data Access Layer (DL)](#data-access-layer-dl)
 - [Domain Model & Modules](#domain-model--modules)
-- [Database Design](#database-design)
-- [System Diagrams](#system-diagrams)
-- [Test Cases / Screenshots (Examples)](#test-cases--screenshots-examples)
-- [Requirements & Setup](#requirements--setup)
+- [Database Design & Setup](#database-design--setup)
+- [Installation & Setup](#installation--setup)
+- [Usage & Common Workflows](#usage--common-workflows)
+- [Configuration (Connection String & Seeds)](#configuration-connection-string--seeds)
+- [Testing & Screenshots](#testing--screenshots)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -37,154 +32,147 @@ This project is a Hospital Management System (HMS) developed using C# (Windows F
 
 ## Overview
 
-The Hospital Management System automates the daily operations of a hospital to eliminate manual paperwork, reduce errors, and improve data accessibility. It centralizes patient records, appointments, billing, staff management, and inventory in a secure, role-based system.
+This Hospital Management System centralizes core hospital operations: patient records, appointments, billing, prescriptions, inventory, and user role management. It reduces manual paperwork and helps standardize workflows across staff roles (Admin, Doctor, Receptionist, Nurse, Pharmacist, Lab Technician).
+
+The application is split into layered components for maintainability and testability. The UI layer is implemented with Windows Forms for a desktop experience and a minimal Console interface for quick interactions.
+
+---
 
 ## Motivation & Problem Statement
 
-Manual hospital record-keeping causes:
-- Loss or duplication of patient records
-- Incorrect billing calculations
-- Difficulty in managing appointments
-- No centralized patient history
-- Unauthorized data access
-- Inefficient staff management
+Manual hospital systems suffer from:
+- Lost or duplicated patient records
+- Billing errors and inconsistent invoices
+- Inefficient appointment handling and double-bookings
+- Hard-to-track prescriptions and inventory
+- Unauthorized access to sensitive data
 
-Consequences include poor decision-making, reduced operational efficiency, increased administrative workload, and patient dissatisfaction. This HMS aims to address these issues through automation, validation, and secure data storage.
+This project aims to provide a lightweight, secure, and extendable HMS suitable for learning and small-scale deployments.
+
+---
 
 ## Key Features
 
-- User authentication with role-based access control (Admin, Doctor, Receptionist, Nurse, Pharmacist, Lab Technician)
-- Patient record management (create, read, update, delete)
-- Doctor and staff management
-- Appointment scheduling and tracking
-- Billing and payment processing with transaction handling
-- Prescription and inventory management
-- Secure storage using SQL Server
-- Dual interface: GUI (Windows Forms) and Console
-- Business rules and validation to maintain data integrity
+- 🔐 Role-based authentication (Admin, Doctor, Receptionist, Nurse, Pharmacist, Lab Technician)
+- 🧾 Patient record management (CRUD with validations)
+- 🩺 Doctor and staff management
+- 📅 Appointment scheduling with conflict prevention
+- 💳 Billing and transactional payment processing
+- 💊 Prescription generation and basic inventory management
+- 🗃️ SQL Server persistence with parameterized queries to prevent SQL injection
+- 🧩 Modular layered design (UI, Business Logic, Service, Data Access)
 
 ---
 
 ## Architecture & Design
 
-This project follows a layered design to separate concerns and improve maintainability and testability.
+This project follows a layered architecture to keep responsibilities separated and to simplify testing and maintenance.
 
-### Four-tier / Layered Architecture
-![Architecture icon](images/architecture.svg)
+- UI (Windows Forms / Console) — Presents data and collects user input
+- Business Logic (BL) — Enforces rules, validations, and domain workflows
+- Service Layer — Coordinates complex operations and authorization checks
+- Data Access Layer (DAL) — Encapsulates SQL Server interactions (CRUD, transactions)
 
-- UI (User Interface) Layer
-- Business Logic (BL) Layer
-- Service Layer (prevents unauthorized direct DB access, coordinates services)
-- Data Access Layer (DL)
-
-### User Interface (UI) Layer
-Purpose: Present data and accept user input via Windows Forms and a Console interface.
-Responsibilities:
-- Display login, dashboards, forms
-- Route user actions to BL
-- Show validation messages and results
-Note: UI never communicates directly with the database; it uses BL / Service layer.
-
-### Business Logic (BL) Layer
-Purpose: Implements hospital rules and workflows.
-Responsibilities:
-- Validate user credentials and enforce role-based access
-- Enforce business rules (e.g., only assigned doctors see appointments)
-- Coordinate data flows between UI and DL
-- Perform calculations (billing totals, inventory updates)
-
-### Service Layer
-Purpose: Acts as a gatekeeper for database operations, performing authorization checks and preventing unauthorized DB access. Coordinates complex operations that may span BL and DL.
-
-### Data Access Layer (DL)
-Purpose: All SQL Server database interaction; uses parameterized queries and transactions.
-Responsibilities:
-- CRUD operations
-- Transaction handling (billing, inventory)
-- Mapping database records to application objects
-- Prevent SQL injection (parameterized queries)
-
-Security measures include parameterized queries, controlled DB access, and transaction management for critical operations.
+Security highlights:
+- Parameterized queries to prevent SQL injection
+- Transaction handling for billing and inventory updates
+- Role checks in service/business layers before sensitive operations
 
 ---
 
 ## Domain Model & Modules
 
-Main modules include:
+Main modules and responsibilities:
+1. User Management — authentication, roles, profile management
+2. Patient Management — demographics, medical history, notes
+3. Doctor Management — doctors, specialties, availability
+4. Appointment Management — schedule, reschedule, prevent double-booking
+5. Billing Management — generate bills, payments, transactional safety
+6. Prescriptions & Inventory — prescribe medication, update stock
 
-1. User Management
-2. Patient Management
-3. Doctor Management
-4. Appointment Management
-5. Billing Management
-6. Prescriptions & Inventory
-
-(See earlier sections for details.)
-
----
-
-## Database Design
-
-The database follows relational modeling and normalization rules. Example main tables: Users, Patients, Doctors, Appointments, Prescriptions, Bills, Inventory.
+Each module has its own set of classes in the corresponding layer (BL/DAL) and unit responsibilities are kept small and testable.
 
 ---
 
-## System Diagrams
+## Database Design & Setup
 
-Below are the main design diagrams for the project. The images are included in the repository under `images/diagrams/`:
+Primary tables (example): Users, Patients, Doctors, Appointments, Prescriptions, Bills, Inventory.
 
-- Programmer Diagram (images/diagrams/programmer_diagram.png) — shows OOP concepts (encapsulation, inheritance, polymorphism) and class responsibilities.
-- Layered Architecture Diagram (images/diagrams/layered_architecture.png) — shows UI, BL, Service Layer, and DL interactions.
-- Flow Diagram (images/diagrams/flow_diagram.png) — shows the login → role check → dashboards → save data flow.
+- Keep schema normalized (avoid duplicate patient info across tables)
+- Use appropriate indexes for lookup fields (e.g., PatientID, AppointmentDate, DoctorID)
+- Use transactions for multi-step operations (billing + inventory update)
 
-Programmer Diagram (Image 1)  
-![Programmer Diagram](images/diagrams/programmer_diagram.png)
-
-Layered Architecture Diagram (Image 2)  
-![Layered Architecture](images/diagrams/layered_architecture.png)
-
-Flow Diagram (Image 3)  
-![Flow Diagram](images/diagrams/flow_diagram.png)
-
-(If the images do not display, make sure the files are present at the paths above. If you prefer the images placed in `docs/diagrams/` instead, I can move them.)
+If DB scripts exist in the repository (look under `/database` or `/scripts`), run those to restore the schema and seed data.
 
 ---
 
-## Test Cases / Screenshots (Examples)
+## Installation & Setup
 
-- Sign Up / Registration (email uniqueness, password length)
-- Manage Patients (add/update/delete, validation)
-- Manage Appointments (link patient and doctor, prevent double-booking)
-- Billing (generate after appointment, transactional updates)
-
-Include screenshots of forms and dashboards under `/docs/screenshots` if available.
-
----
-
-## Requirements & Setup
-
-- Visual Studio (Windows Forms support)
-- .NET / .NET Framework (as used by project)
+Prerequisites:
+- Windows 10/11 (or compatible)
+- Visual Studio with Windows Forms workload
+- .NET Framework or .NET SDK matching the solution (check project files)
 - SQL Server (Express or full)
-- Update connection string in app settings
-- Restore DB using scripts in /database or /scripts if included
 
-Basic steps:
-1. Restore the SQL Server DB using provided scripts.
-2. Update connection string.
-3. Build the solution.
-4. Run GUI or Console and log in with seeded credentials (if provided).
+Steps:
+1. Clone the repository:
+   git clone https://github.com/HaseebAhmad6945/Second-Semester-C-Project.git
+2. Open the solution (.sln) in Visual Studio and restore NuGet packages.
+3. Restore or create the SQL Server database using provided scripts (if present).
+4. Update the connection string in the appropriate appsettings / config file (see Configuration section below).
+5. Build the solution and run the GUI or Console app.
+
+---
+
+## Configuration (Connection String & Seeds)
+
+- Connection string: update to your SQL Server instance in the project configuration (App.config / appsettings.json / settings file depending on the project). Example:
+  Server=YOUR_SERVER;Database=HMS_DB;Trusted_Connection=True;MultipleActiveResultSets=true;
+
+- Seed accounts (example): The project may seed default users (Admin/Doctor). If not, create an Admin user directly in the DB or via the registration workflow.
+
+---
+
+## Usage & Common Workflows
+
+Common tasks and where to find them in the UI:
+- Login: Use seeded credentials or create an account; roles determine access.
+- Add Patient: Navigate to Patients → New Patient → fill details and save.
+- Schedule Appointment: Appointments → New → Select Patient & Doctor → Choose time (system prevents double-booking).
+- Billing: Generate bill after appointment; transactions update inventory and billing tables atomically.
+- Prescriptions: From an appointment or doctor dashboard, create prescription and adjust inventory.
+
+---
+
+## Testing & Screenshots
+
+Include screenshots under `/docs/screenshots` if available. If images were not loading previously, ensure the image files exist in the repo and use relative paths. For a presentation, prefer embedding screenshots exported to `docs/screenshots/*.png`.
+
+---
+
+## Developer Notes
+
+- Code style: follow single-responsibility for classes and keep UI code thin (push logic to BL/Services).
+- Logging: add logging for critical flows (authentication, billing) to help debugging.
+- Extendability: add unit tests for BL and DAL using a test framework (NUnit/xUnit) and use a test database or in-memory provider where possible.
 
 ---
 
 ## Contributing
 
-- Fork → feature branch → pull request
-- Add tests and follow coding style
+1. Fork the repo, create a feature branch, make changes, and open a pull request.
+2. Add unit tests where appropriate and document behavior changes.
+3. Keep commits focused and descriptive.
 
 ---
 
 ## License
 
-Add a LICENSE file (e.g., MIT) or specify institution-specific terms.
+If this is for coursework, include a note about usage and attribution. Otherwise, add an open-source license (e.g., MIT) by adding a LICENSE file.
 
+---
+
+If you want, I can also:
+- Add emoji/icon decorations before headings throughout the README (I used several already).
+- Remove or move the broken images and diagrams into a `docs/` folder and update paths.
+- Create a small CONTRIBUTING.md and LICENSE file.
